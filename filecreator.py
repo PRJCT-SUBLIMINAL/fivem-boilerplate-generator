@@ -12,6 +12,9 @@ def generate_manifest(resource_path, isUiNeeded):
     if isUiNeeded in ("N", "n"):
         with open(fxmanifest, "w") as f:
             f.write("fx_version 'cerulean' \ngame 'gta5' \nlua54 'yes' \n\nclient_file 'client.lua' \n\nserver_file 'server.lua'")
+    elif isUiNeeded in ("Y", "y"):
+        with open(fxmanifest, "w") as f:
+            f.write("fx_version 'cerulean' \ngame 'gta5' \nlua54 'yes' \n\nclient_file 'client.lua' \n\nserver_file 'server.lua' \n\nui_page 'html/index.html' \n\nfiles {\n'html/index.hmtl',\n'html/style.css',\n'html/script.js'\n}")
 
 def generate_folders(formatted_pathstring, isUiNeeded):
     resource_path = f'output/{formatted_pathstring}'
