@@ -1,7 +1,13 @@
 import os
 
 def generate_files_nui(resource_path):
-    print('nui')
+    html_path = f'{resource_path}/html'
+    indexHTML = os.path.join(html_path, "index.html")
+    styleCSS = os.path.join(html_path, "style.css")
+    scriptJS = os.path.join(html_path, "script.js")
+
+    with open(indexHTML, "w") as f:
+        f.write("<!DOCTYPE html>\n<hmtl>\n    <head>\n        <link rel='stylesheet' href='style.css'>\n        <script src='script.js' defer></script>\n    </head>\n    <body>\n    </body>\n<hmtl>")
 
 def generate_files(resource_path):
     print('gen files')
