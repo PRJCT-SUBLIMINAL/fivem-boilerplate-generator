@@ -10,8 +10,8 @@ def generate_manifest(resource_path, isUiNeeded):
     fxmanifest = os.path.join(resource_path, "fxmanifest.lua")
 
     if isUiNeeded in ("N", "n"):
-    with open(fxmanifest, "w") as f:
-        f.write("fx_version 'cerulean' \ngame 'gta5' \nlua54 'yes' \n\nclient_file 'client.lua' \n\nserver_file 'server.lua'")
+        with open(fxmanifest, "w") as f:
+            f.write("fx_version 'cerulean' \ngame 'gta5' \nlua54 'yes' \n\nclient_file 'client.lua' \n\nserver_file 'server.lua'")
 
 def generate_folders(formatted_pathstring, isUiNeeded):
     resource_path = f'output/{formatted_pathstring}'
