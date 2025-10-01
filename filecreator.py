@@ -8,19 +8,37 @@ def generate_files_nui(resource_path):
 
     with open(indexHTML, "w") as f:
         f.write("<!DOCTYPE html>\n<hmtl>\n    <head>\n        <link rel='stylesheet' href='style.css'>\n        <script src='script.js' defer></script>\n    </head>\n    <body>\n    </body>\n<hmtl>")
+    with open(styleCSS, "w") as f:
+        f.write("body {\n  margin: 0px;\n}")
+    with open(scriptJS, "w") as f:
+        f.write("console.log('script.js loaded')")
 
 def generate_files(resource_path):
-    print('gen files')
+    client_path = f'{resource_path}/client'
+    server_path = f'{resource_path}/server'
+
+    clientLua = os.path.join(client_path, "cl_main.lua")
+    serverLua = os.path.join(server_path, "sv_main.lua")
+    configLua = os.path.join(resource_path, "config.lua")
+
+    with open(clientLua, "w") as f:
+        f.write("--local QBCore = exports['qb-core]:GetCoreObject()\nlocal function debug(text)\n    if Config.Debug == false then return end\n    print('[DEBUG] '..text)\nend")
+
+    with open(serverLua, "w") as f:
+        f.write("--local QBCore = exports['qb-core]:GetCoreObject()\nlocal function debug(text)\n    if Config.Debug == false then return end\n    print('[DEBUG] '..text)\nend")
     
+    with open(configLua, "w") as f:
+        f.write("Config = { }\nConfig.Debug = true")
+
 def generate_manifest(resource_path, isUiNeeded):
     fxmanifest = os.path.join(resource_path, "fxmanifest.lua")
 
     if isUiNeeded in ("N", "n"):
         with open(fxmanifest, "w") as f:
-            f.write("fx_version 'cerulean' \ngame 'gta5' \nlua54 'yes' \n\nclient_file 'client.lua' \n\nserver_file 'server.lua'")
+            f.write("fx_version 'cerulean' \ngame 'gta5' \nlua54 'yes' \n\nshared_files {'config.lua'} \n\nserver_file 'server/sv_main.lua' \n\nclient_file 'client/cl_main.lua'")
     elif isUiNeeded in ("Y", "y"):
         with open(fxmanifest, "w") as f:
-            f.write("fx_version 'cerulean' \ngame 'gta5' \nlua54 'yes' \n\nclient_file 'client.lua' \n\nserver_file 'server.lua' \n\nui_page 'html/index.html' \n\nfiles {\n    'html/index.hmtl',\n    'html/style.css',\n    'html/script.js'\n}")
+            f.write("fx_version 'cerulean' \ngame 'gta5' \nlua54 'yes' \n\nshared_files {'config.lua'} \n\nserver_files {'server/sv_main.lua'} \n\nclient_files {'client/cl_main.lua'} \n\nui_page 'html/index.html' \n\nfiles {\n    'html/index.hmtl',\n    'html/style.css',\n    'html/script.js'\n}")
 
 def generate_folders(formatted_pathstring, isUiNeeded):
     resource_path = f'output/{formatted_pathstring}'
@@ -29,13 +47,11 @@ def generate_folders(formatted_pathstring, isUiNeeded):
     os.mkdir(f'{resource_path}/server')
 
     if isUiNeeded in ("Y", "y"):
-        print('NUI needed. Creating "html" folder')
         os.mkdir(f'{resource_path}/html')
         generate_files_nui(resource_path)
         generate_files(resource_path)
     elif isUiNeeded in ("N", "n"):
         generate_files(resource_path)
-        print('NUI not needed.')
     
     generate_manifest(resource_path, isUiNeeded)
 
