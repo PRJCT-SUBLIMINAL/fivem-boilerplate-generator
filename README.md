@@ -7,5 +7,5 @@ __Requirements:__
 
 __How to use:__
 
--1 test
--2 test
+1. test
+2. test
