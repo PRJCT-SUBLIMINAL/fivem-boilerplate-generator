@@ -5,6 +5,8 @@ __Requirements:__
 - Windows (exe folder)
 - Linux + Python 3
 
+
+
 __How to use:__
 
 1. Run the .exe or .bat file (windows) | Run `python3 main.py` (MacOS/Linux)
