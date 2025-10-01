@@ -4,3 +4,5 @@ def main():
     initialize_resource()
 
 main()
+
+#TEST
