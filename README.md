@@ -15,4 +15,6 @@ __How to use:__
 
 4. Open the `output` folder and you should see your newly generated resource folder with corresponding files.
 
+#
+
 __This is just a boilerplate generator. All base files and code are inserted for you to build off.__
