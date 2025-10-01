@@ -9,11 +9,11 @@ __Requirements:__
 
 __How to use:__
 
-1. Run the .exe or .bat file (windows) | Run `python3 main.py` (MacOS/Linux)
+1. Run the `.exe` or `.bat` file (windows) | Run `python3 main.py` (MacOS/Linux)
 
 2. Input the desired resource name into the terminal
 
-3. Input Y for NUI resource and N for normal resource. (Non-case-sensitive)
+3. Input `Y` for NUI resource and `N` for normal resource. (Non-case-sensitive)
 
 4. Open the `output` folder and you should see your newly generated resource folder with corresponding files.
 
