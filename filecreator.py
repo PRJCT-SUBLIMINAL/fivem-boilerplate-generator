@@ -34,20 +34,31 @@ def generate_files(resource_path):
     shutil.copyfile('bin/sv_main.lua', f'{serverLua}')
     shutil.copyfile('bin/config.lua', f'{configLua}')
 
-def generate_manifest(resource_path, isUiNeeded):
+def generate_manifest(resource_path, isUiNeeded, game):
     print(' Writing fxmanifest.lua... ')
     fxmanifest = os.path.join(resource_path, "fxmanifest.lua")
 
-    if isUiNeeded in ("N", "n"):
-        print(' NUI generated: No ')
-        with open(fxmanifest, "w") as f:
-            f.write("fx_version 'cerulean' \ngame 'gta5' \nlua54 'yes' \n\nshared_files {'config.lua'} \n\nserver_file 'server/sv_main.lua' \n\nclient_file 'client/cl_main.lua'")
-    elif isUiNeeded in ("Y", "y"):
-        print(' NUI generated: Yes ')
-        with open(fxmanifest, "w") as f:
-            f.write("fx_version 'cerulean' \ngame 'gta5' \nlua54 'yes' \n\nshared_files {'config.lua'} \n\nserver_files {'server/sv_main.lua'} \n\nclient_files {'client/cl_main.lua'} \n\nui_page 'html/index.html' \n\nfiles {\n    'html/index.hmtl',\n    'html/style.css',\n    'html/script.js'\n}")
+    if game in 'fivem':
+        if isUiNeeded in ("N", "n"):
+            print(' NUI generated: No ')
+            with open(fxmanifest, "w") as f:
+                f.write("fx_version 'cerulean' \ngame 'gta5' \nlua54 'yes' \n\nshared_files {'config.lua'} \n\nserver_file 'server/sv_main.lua' \n\nclient_file 'client/cl_main.lua'")
+        elif isUiNeeded in ("Y", "y"):
+            print(' NUI generated: Yes ')
+            with open(fxmanifest, "w") as f:
+                f.write("fx_version 'cerulean' \ngame 'gta5' \nlua54 'yes' \n\nshared_files {'config.lua'} \n\nserver_files {'server/sv_main.lua'} \n\nclient_files {'client/cl_main.lua'} \n\nui_page 'html/index.html' \n\nfiles {\n    'html/index.hmtl',\n    'html/style.css',\n    'html/script.js'\n}")
+    elif game in 'redm':
+        if isUiNeeded in ("N", "n"):
+            print(' NUI generated: No ')
+            with open(fxmanifest, "w") as f:
+                f.write("fx_version 'cerulean' \ngame 'rdr3' \nlua54 'yes' \n\nshared_files {'config.lua'} \n\nserver_file 'server/sv_main.lua' \n\nclient_file 'client/cl_main.lua'")
+        elif isUiNeeded in ("Y", "y"):
+            print(' NUI generated: Yes ')
+            with open(fxmanifest, "w") as f:
+                f.write("fx_version 'cerulean' \ngame 'rdr3' \nlua54 'yes' \n\nshared_files {'config.lua'} \n\nserver_files {'server/sv_main.lua'} \n\nclient_files {'client/cl_main.lua'} \n\nui_page 'html/index.html' \n\nfiles {\n    'html/index.hmtl',\n    'html/style.css',\n    'html/script.js'\n}")
 
-def generate_folders(formatted_pathstring, isUiNeeded):
+
+def generate_folders(formatted_pathstring, isUiNeeded, game):
     resource_path = f'output/{formatted_pathstring}'
     os.makedirs(resource_path, exist_ok=True)
     os.mkdir(f'{resource_path}/client')
@@ -60,7 +71,7 @@ def generate_folders(formatted_pathstring, isUiNeeded):
     elif isUiNeeded in ("N", "n"):
         generate_files(resource_path)
     
-    generate_manifest(resource_path, isUiNeeded)
+    generate_manifest(resource_path, isUiNeeded, game)
 
     print(f' Resource successfully generated in directory: "/output/{formatted_pathstring}" ')
 
@@ -86,7 +97,12 @@ def initialize_resource():
 
     if isUiNeeded not in ('Y', 'y', 'N', 'n'):
         raise Exception(' You need to input Y/N ')
+    
+    game = input(' Which game do you want to generate this resource for? (FiveM [fivem] / RedM [redm]) Please input "fivem" or "redm" without the quotation marks: ')
+
+    if game not in ('fivem', 'redm'):
+        raise Exception(' You need to input "fivem" or "redm"')
 
     formatted_pathstring = name_input.lower()
 
-    generate_folders(formatted_pathstring, isUiNeeded)
+    generate_folders(formatted_pathstring, isUiNeeded, game)
