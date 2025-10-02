@@ -1,7 +1,17 @@
 import os
 import shutil
+import sys
+import time
+
+RESOURCE_NAME = '\033[0;32m # FiveM Resource Generator 2.1 # \033[0m'
+print('__________________________')
+print('')
+print(f'{RESOURCE_NAME}')
+print('__________________________')
+print('')
 
 def generate_files_nui(resource_path):
+    print('\033[0;32m Generating NUI files... \033[0m')
     html_path = f'{resource_path}/html'
     indexHTML = os.path.join(html_path, "index.html")
     styleCSS = os.path.join(html_path, "style.css")
@@ -11,14 +21,8 @@ def generate_files_nui(resource_path):
     shutil.copyfile('bin/style.css', f'{styleCSS}')
     shutil.copyfile('bin/script.js', f'{scriptJS}')
 
-#    with open(indexHTML, "w") as f:
-#        f.write("<!DOCTYPE html>\n<hmtl>\n    <head>\n        <link rel='stylesheet' href='style.css'>\n        <script src='script.js' defer></script>\n    </head>\n    <body>\n    </body>\n<hmtl>")
-#    with open(styleCSS, "w") as f:
-#        f.write("body {\n  margin: 0px;\n}")
-#    with open(scriptJS, "w") as f:
-#        f.write("console.log('script.js loaded')")
-
 def generate_files(resource_path):
+    print('\033[0;32m Generating Lua files... \033[0m')
     client_path = f'{resource_path}/client'
     server_path = f'{resource_path}/server'
 
@@ -30,22 +34,16 @@ def generate_files(resource_path):
     shutil.copyfile('bin/sv_main.lua', f'{serverLua}')
     shutil.copyfile('bin/config.lua', f'{configLua}')
 
-#    with open(clientLua, "w") as f:
-#        f.write("--local QBCore = exports['qb-core]:GetCoreObject()\nlocal function debug(text)\n    if Config.Debug == false then return end\n    print('[DEBUG] '..text)\nend")
-
-#    with open(serverLua, "w") as f:
-#        f.write("--local QBCore = exports['qb-core]:GetCoreObject()\nlocal function debug(text)\n    if Config.Debug == false then return end\n    print('[DEBUG] '..text)\nend")
-    
-#    with open(configLua, "w") as f:
-#        f.write("Config = { }\nConfig.Debug = true")
-
 def generate_manifest(resource_path, isUiNeeded):
+    print('\033[0;32m Writing fxmanifest.lua... \033[0m')
     fxmanifest = os.path.join(resource_path, "fxmanifest.lua")
 
     if isUiNeeded in ("N", "n"):
+        print('\033[0;32m NUI generated: No \033[0m')
         with open(fxmanifest, "w") as f:
             f.write("fx_version 'cerulean' \ngame 'gta5' \nlua54 'yes' \n\nshared_files {'config.lua'} \n\nserver_file 'server/sv_main.lua' \n\nclient_file 'client/cl_main.lua'")
     elif isUiNeeded in ("Y", "y"):
+        print('\033[0;32m NUI generated: Yes \033[0m')
         with open(fxmanifest, "w") as f:
             f.write("fx_version 'cerulean' \ngame 'gta5' \nlua54 'yes' \n\nshared_files {'config.lua'} \n\nserver_files {'server/sv_main.lua'} \n\nclient_files {'client/cl_main.lua'} \n\nui_page 'html/index.html' \n\nfiles {\n    'html/index.hmtl',\n    'html/style.css',\n    'html/script.js'\n}")
 
@@ -64,10 +62,31 @@ def generate_folders(formatted_pathstring, isUiNeeded):
     
     generate_manifest(resource_path, isUiNeeded)
 
-def initialize_resource():
-    resource_name = input('Please enter the name for your resource: ')
-    isUiNeeded = input('Do you want to use NUI? Please input Y/N: ')
+    print(f'\033[0;32m Resource successfully generated in directory: "/output/{formatted_pathstring}" \033[0m')
 
-    formatted_pathstring = resource_name.lower()
+    time.sleep(1)
+
+    prompt_to_continue()
+
+def prompt_to_continue():
+    to_continue = input('\033[0;32m Do you want to continue? Please input Y/N: \033[0m')
+
+    if to_continue in ('Y', 'y'):
+        initialize_resource()
+    elif to_continue in ('N', 'n'):
+        sys.exit()
+
+def initialize_resource():
+    name_input = input('\033[0;32m Please enter the name for your resource: \033[0m')
+
+    if len(name_input) == 0:
+        raise Exception('\033[0;32m Resource name can\'t be blank \033[0m')
+    
+    isUiNeeded = input('\033[0;32m Do you want to use NUI? Please input Y/N: \033[0m')
+
+    if isUiNeeded not in ('Y', 'y', 'N', 'n'):
+        raise Exception('\033[0;32m You need to input Y/N \033[0m')
+
+    formatted_pathstring = name_input.lower()
 
     generate_folders(formatted_pathstring, isUiNeeded)
