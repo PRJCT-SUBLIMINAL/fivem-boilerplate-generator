@@ -9,7 +9,7 @@ __Requirements:__
 
 __How to use:__
 
-1. Run the `.exe` or `.bat` file (Windows) | Run `python3 main.py` (MacOS/Linux)
+1. Run the `.bat` file (Windows) | Run `python3 main.py` in the terminal (MacOS/Linux)
 
 2. Input the desired resource name into the terminal
 
