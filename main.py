@@ -1,4 +1,4 @@
-from filecreator import initialize_resource
+from filecreator import *
 
 def main():
     initialize_resource()

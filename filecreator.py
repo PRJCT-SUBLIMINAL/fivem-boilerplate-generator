@@ -3,7 +3,7 @@ import shutil
 import sys
 import time
 
-RESOURCE_NAME = '\033[0;32m # FiveM Resource Generator 2.1 # \033[0m'
+RESOURCE_NAME = ' # FiveM Resource Generator 2.1 # '
 print('__________________________')
 print('')
 print(f'{RESOURCE_NAME}')
@@ -11,7 +11,7 @@ print('__________________________')
 print('')
 
 def generate_files_nui(resource_path):
-    print('\033[0;32m Generating NUI files... \033[0m')
+    print(' Generating NUI files... ')
     html_path = f'{resource_path}/html'
     indexHTML = os.path.join(html_path, "index.html")
     styleCSS = os.path.join(html_path, "style.css")
@@ -22,7 +22,7 @@ def generate_files_nui(resource_path):
     shutil.copyfile('bin/script.js', f'{scriptJS}')
 
 def generate_files(resource_path):
-    print('\033[0;32m Generating Lua files... \033[0m')
+    print(' Generating Lua files... ')
     client_path = f'{resource_path}/client'
     server_path = f'{resource_path}/server'
 
@@ -35,15 +35,15 @@ def generate_files(resource_path):
     shutil.copyfile('bin/config.lua', f'{configLua}')
 
 def generate_manifest(resource_path, isUiNeeded):
-    print('\033[0;32m Writing fxmanifest.lua... \033[0m')
+    print(' Writing fxmanifest.lua... ')
     fxmanifest = os.path.join(resource_path, "fxmanifest.lua")
 
     if isUiNeeded in ("N", "n"):
-        print('\033[0;32m NUI generated: No \033[0m')
+        print(' NUI generated: No ')
         with open(fxmanifest, "w") as f:
             f.write("fx_version 'cerulean' \ngame 'gta5' \nlua54 'yes' \n\nshared_files {'config.lua'} \n\nserver_file 'server/sv_main.lua' \n\nclient_file 'client/cl_main.lua'")
     elif isUiNeeded in ("Y", "y"):
-        print('\033[0;32m NUI generated: Yes \033[0m')
+        print(' NUI generated: Yes ')
         with open(fxmanifest, "w") as f:
             f.write("fx_version 'cerulean' \ngame 'gta5' \nlua54 'yes' \n\nshared_files {'config.lua'} \n\nserver_files {'server/sv_main.lua'} \n\nclient_files {'client/cl_main.lua'} \n\nui_page 'html/index.html' \n\nfiles {\n    'html/index.hmtl',\n    'html/style.css',\n    'html/script.js'\n}")
 
@@ -62,14 +62,14 @@ def generate_folders(formatted_pathstring, isUiNeeded):
     
     generate_manifest(resource_path, isUiNeeded)
 
-    print(f'\033[0;32m Resource successfully generated in directory: "/output/{formatted_pathstring}" \033[0m')
+    print(f' Resource successfully generated in directory: "/output/{formatted_pathstring}" ')
 
     time.sleep(1)
 
     prompt_to_continue()
 
 def prompt_to_continue():
-    to_continue = input('\033[0;32m Do you want to continue? Please input Y/N: \033[0m')
+    to_continue = input(' Do you want to continue? Please input Y/N: ')
 
     if to_continue in ('Y', 'y'):
         initialize_resource()
@@ -77,15 +77,15 @@ def prompt_to_continue():
         sys.exit()
 
 def initialize_resource():
-    name_input = input('\033[0;32m Please enter the name for your resource: \033[0m')
+    name_input = input(' Please enter the name for your resource: ')
 
     if len(name_input) == 0:
-        raise Exception('\033[0;32m Resource name can\'t be blank \033[0m')
+        raise Exception(' Resource name can\'t be blank ')
     
-    isUiNeeded = input('\033[0;32m Do you want to use NUI? Please input Y/N: \033[0m')
+    isUiNeeded = input(' Do you want to use NUI? Please input Y/N: ')
 
     if isUiNeeded not in ('Y', 'y', 'N', 'n'):
-        raise Exception('\033[0;32m You need to input Y/N \033[0m')
+        raise Exception(' You need to input Y/N ')
 
     formatted_pathstring = name_input.lower()
 
