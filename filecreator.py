@@ -7,6 +7,10 @@ def generate_files_nui(resource_path):
     styleCSS = os.path.join(html_path, "style.css")
     scriptJS = os.path.join(html_path, "script.js")
 
+    shutil.copyfile('bin/index.html', f'{indexHTML}')
+    shutil.copyfile('bin/style.css', f'{styleCSS}')
+    shutil.copyfile('bin/script.js', f'{scriptJS}')
+
 #    with open(indexHTML, "w") as f:
 #        f.write("<!DOCTYPE html>\n<hmtl>\n    <head>\n        <link rel='stylesheet' href='style.css'>\n        <script src='script.js' defer></script>\n    </head>\n    <body>\n    </body>\n<hmtl>")
 #    with open(styleCSS, "w") as f:
@@ -18,9 +22,13 @@ def generate_files(resource_path):
     client_path = f'{resource_path}/client'
     server_path = f'{resource_path}/server'
 
-#    clientLua = os.path.join(client_path, "cl_main.lua")
-#    serverLua = os.path.join(server_path, "sv_main.lua")
-#    configLua = os.path.join(resource_path, "config.lua")
+    clientLua = os.path.join(client_path, "cl_main.lua")
+    serverLua = os.path.join(server_path, "sv_main.lua")
+    configLua = os.path.join(resource_path, "config.lua")
+
+    shutil.copyfile('bin/cl_main.lua', f'{clientLua}')
+    shutil.copyfile('bin/sv_main.lua', f'{serverLua}')
+    shutil.copyfile('bin/config.lua', f'{configLua}')
 
 #    with open(clientLua, "w") as f:
 #        f.write("--local QBCore = exports['qb-core]:GetCoreObject()\nlocal function debug(text)\n    if Config.Debug == false then return end\n    print('[DEBUG] '..text)\nend")
