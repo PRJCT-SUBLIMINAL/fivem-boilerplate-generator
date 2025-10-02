@@ -20,3 +20,7 @@ __How to use:__
 #
 
 __This is just a boilerplate generator. All base files and code are inserted for you to build off.__
+
+#
+
+[![Python application](https://github.com/PRJCT-SUBLIMINAL/fivem-boilerplate-generator/actions/workflows/python-app.yml/badge.svg)](https://github.com/PRJCT-SUBLIMINAL/fivem-boilerplate-generator/actions/workflows/python-app.yml)
