@@ -3,7 +3,7 @@ import shutil
 import sys
 import time
 
-RESOURCE_NAME = ' # FiveM Resource Generator 2.1 # '
+RESOURCE_NAME = ' # FiveM Resource Generator 2.3 # '
 print('__________________________')
 print('')
 print(f'{RESOURCE_NAME}')
