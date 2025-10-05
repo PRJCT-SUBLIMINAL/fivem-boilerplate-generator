@@ -46,7 +46,7 @@ def generate_manifest(resource_path, isUiNeeded, game):
         elif isUiNeeded in ("Y", "y"):
             print(' NUI generated: Yes ')
             with open(fxmanifest, "w") as f:
-                f.write("fx_version 'cerulean' \ngame 'gta5' \nlua54 'yes' \n\nshared_files {'config.lua'} \n\nserver_files {'server/sv_main.lua'} \n\nclient_files {'client/cl_main.lua'} \n\nui_page 'html/index.html' \n\nfiles {\n    'html/index.hmtl',\n    'html/style.css',\n    'html/script.js'\n}")
+                f.write("fx_version 'cerulean' \ngame 'gta5' \nlua54 'yes' \n\nshared_files {'config.lua'} \n\nserver_files {'server/sv_main.lua'} \n\nclient_files {'client/cl_main.lua'} \n\nui_page 'html/index.html' \n\nfiles {\n    'html/index.html',\n    'html/style.css',\n    'html/script.js'\n}")
     elif game in 'redm':
         if isUiNeeded in ("N", "n"):
             print(' NUI generated: No ')
@@ -55,7 +55,7 @@ def generate_manifest(resource_path, isUiNeeded, game):
         elif isUiNeeded in ("Y", "y"):
             print(' NUI generated: Yes ')
             with open(fxmanifest, "w") as f:
-                f.write("fx_version 'cerulean' \ngame 'rdr3' \nlua54 'yes' \n\nshared_files {'config.lua'} \n\nserver_files {'server/sv_main.lua'} \n\nclient_files {'client/cl_main.lua'} \n\nui_page 'html/index.html' \n\nfiles {\n    'html/index.hmtl',\n    'html/style.css',\n    'html/script.js'\n}")
+                f.write("fx_version 'cerulean' \ngame 'rdr3' \nlua54 'yes' \n\nshared_files {'config.lua'} \n\nserver_files {'server/sv_main.lua'} \n\nclient_files {'client/cl_main.lua'} \n\nui_page 'html/index.html' \n\nfiles {\n    'html/index.html',\n    'html/style.css',\n    'html/script.js'\n}")
 
 
 def generate_folders(formatted_pathstring, isUiNeeded, game):
